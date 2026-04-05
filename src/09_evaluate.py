@@ -36,8 +36,10 @@ def evaluate_saved_model(
     df = pd.read_csv(data_path)
     training_artifacts = train_module.train_model(df, target_column=ACADEMIC_FACTORS_TARGET_COLUMN)
     saved_model = train_module.load_model(model_path)
-    return train_module.test_model(
+    return train_module.evaluate_train_test_split(
         saved_model,
+        training_artifacts["X_train"],
+        training_artifacts["y_train"],
         training_artifacts["X_test"],
         training_artifacts["y_test"],
     )
@@ -63,7 +65,10 @@ def main() -> None:
     """CLI entrypoint for evaluating the saved baseline model."""
     args = parse_args()
     metrics = evaluate_saved_model(data_path=args.data_path, model_path=args.model_path)
-    print(f"Evaluated saved model from {MODEL_PATH} with MAE={metrics['mae']:.4f}.")
+    print(
+        f"Evaluated saved model from {args.model_path} with "
+        f"train_MAE={metrics['train_mae']:.4f} and test_MAE={metrics['test_mae']:.4f}."
+    )
 
 
 if __name__ == "__main__":

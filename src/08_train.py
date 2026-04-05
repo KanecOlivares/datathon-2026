@@ -130,6 +130,23 @@ def test_model(model: Pipeline, X_test: pd.DataFrame, y_test: pd.Series) -> dict
     return evaluate_module.evaluate_summary(y_test, y_pred)
 
 
+def evaluate_train_test_split(
+    model: Pipeline,
+    X_train: pd.DataFrame,
+    y_train: pd.Series,
+    X_test: pd.DataFrame,
+    y_test: pd.Series,
+) -> dict[str, float]:
+    """Return comparable MAE metrics for both training and test splits."""
+    evaluate_module = importlib.import_module("src.09_evaluate")
+    train_predictions = predict_model(model, X_train)
+    test_predictions = predict_model(model, X_test)
+    return {
+        "train_mae": evaluate_module.evaluate_mae(y_train, train_predictions)["mae"],
+        "test_mae": evaluate_module.evaluate_mae(y_test, test_predictions)["mae"],
+    }
+
+
 def save_model(model: Pipeline, path: str = str(MODEL_PATH)) -> None:
     """Persist the trained pipeline."""
     destination = Path(path)
@@ -145,8 +162,10 @@ def load_model(path: str = str(MODEL_PATH)) -> Pipeline:
 def train_and_save_model(df: pd.DataFrame, target_column: str = ACADEMIC_FACTORS_TARGET_COLUMN) -> dict[str, Any]:
     """Train the model, evaluate it, and persist the artifacts."""
     training_artifacts = train_model(df, target_column=target_column)
-    metrics = test_model(
+    metrics = evaluate_train_test_split(
         training_artifacts["model"],
+        training_artifacts["X_train"],
+        training_artifacts["y_train"],
         training_artifacts["X_test"],
         training_artifacts["y_test"],
     )
@@ -159,7 +178,7 @@ def train_and_save_model(df: pd.DataFrame, target_column: str = ACADEMIC_FACTORS
             "feature_columns": training_artifacts["feature_columns"],
             "categorical_columns": training_artifacts["categorical_columns"],
             "numeric_columns": training_artifacts["numeric_columns"],
-            "test_metrics": metrics,
+            "train_test_metrics": metrics,
         },
         METRICS_PATH,
     )
@@ -184,7 +203,8 @@ def main() -> None:
     training_artifacts = train_and_save_model(df)
     print(
         f"Saved RandomForestRegressor to {MODEL_PATH} with "
-        f"MAE={training_artifacts['metrics']['mae']:.4f}."
+        f"train_MAE={training_artifacts['metrics']['train_mae']:.4f} and "
+        f"test_MAE={training_artifacts['metrics']['test_mae']:.4f}."
     )
 
 

@@ -56,7 +56,8 @@
   ],
   "random_seed": 40426,
   "target_column": "Exam_Score",
-  "test_metrics": {
-    "mae": 0.9401172465960664
+  "train_test_metrics": {
+    "test_mae": 0.9401172465960664,
+    "train_mae": 0.392833491012299
   }
 }
