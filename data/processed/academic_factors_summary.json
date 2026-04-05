@@ -1,0 +1,35 @@
+{
+  "derived_columns": [
+    "Academic_Support_Index",
+    "Access_to_Resources_Encoded",
+    "Distance_from_Home_Encoded",
+    "Extracurricular_Activities_Encoded",
+    "Family_Income_Encoded",
+    "Gender_Encoded",
+    "Home_Support_Index",
+    "Internet_Access_Encoded",
+    "Learning_Disabilities_Encoded",
+    "Motivation_Level_Encoded",
+    "Parental_Education_Level_Encoded",
+    "Parental_Involvement_Encoded",
+    "Peer_Influence_Encoded",
+    "Previous_Score_Gap",
+    "School_Type_Encoded",
+    "Study_Attendance_Product",
+    "Study_Sleep_Balance",
+    "Teacher_Quality_Encoded",
+    "Wellbeing_Index"
+  ],
+  "output_path": "/Users/kanecolivares/Projects/datathon-2026/data/processed/academic_factors_processed.csv",
+  "processed_columns": 39,
+  "processed_missing_values": {},
+  "processed_rows": 6607,
+  "raw_columns": 20,
+  "raw_missing_values": {
+    "Distance_from_Home": 67,
+    "Parental_Education_Level": 90,
+    "Teacher_Quality": 78
+  },
+  "raw_rows": 6607,
+  "source_path": "/Users/kanecolivares/Projects/datathon-2026/data/raw/academic-factors.csv"
+}
