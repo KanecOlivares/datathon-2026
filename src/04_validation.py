@@ -9,10 +9,11 @@ from sklearn.model_selection import train_test_split
 
 from src.config import (
     ACADEMIC_FACTORS_CATEGORICAL_COLUMNS,
+    ACADEMIC_FACTORS_LEAKAGE_COLUMNS,
     ACADEMIC_FACTORS_NUMERIC_COLUMNS,
     ACADEMIC_FACTORS_REQUIRED_COLUMNS,
 )
-from src.config import RANDOM_SEED
+from src.config import RANDOM_SEED, TRAIN_TEST_SPLIT_RATIO
 
 
 ACADEMIC_FACTORS_ALLOWED_VALUES = {
@@ -81,9 +82,16 @@ def validate_academic_factors_dataframe(df: pd.DataFrame) -> None:
 def split_data(
     df: pd.DataFrame,
     target_column: str,
-    test_size: float = 0.2,
+    test_size: float = TRAIN_TEST_SPLIT_RATIO,
 ) -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
-    """Split features and target using a fixed random seed."""
+    """Split regression features and target using a fixed random seed."""
     X = df.drop(columns=[target_column])
     y = df[target_column]
-    return train_test_split(X, y, test_size=test_size, random_state=RANDOM_SEED, stratify=y)
+    return train_test_split(X, y, test_size=test_size, random_state=RANDOM_SEED)
+
+
+def validate_training_columns(X: pd.DataFrame) -> None:
+    """Ensure target-leaking columns are excluded from model inputs."""
+    leakage_columns = sorted(set(X.columns) & set(ACADEMIC_FACTORS_LEAKAGE_COLUMNS))
+    if leakage_columns:
+        raise ValueError(f"Leakage columns present in training data: {leakage_columns}")

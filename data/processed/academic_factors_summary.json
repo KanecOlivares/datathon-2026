@@ -13,7 +13,6 @@
     "Parental_Education_Level_Encoded",
     "Parental_Involvement_Encoded",
     "Peer_Influence_Encoded",
-    "Previous_Score_Gap",
     "School_Type_Encoded",
     "Study_Attendance_Product",
     "Study_Sleep_Balance",
@@ -21,7 +20,7 @@
     "Wellbeing_Index"
   ],
   "output_path": "/Users/kanecolivares/Projects/datathon-2026/data/processed/academic_factors_processed.csv",
-  "processed_columns": 39,
+  "processed_columns": 38,
   "processed_missing_values": {},
   "processed_rows": 6607,
   "raw_columns": 20,

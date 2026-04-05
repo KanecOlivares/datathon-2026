@@ -49,7 +49,6 @@ def _add_derived_columns(df: pd.DataFrame) -> pd.DataFrame:
         + featured["Family_Income_Encoded"]
     )
     featured["Wellbeing_Index"] = featured["Sleep_Hours"] + featured["Physical_Activity"]
-    featured["Previous_Score_Gap"] = featured["Exam_Score"] - featured["Previous_Scores"]
     return featured
 
 

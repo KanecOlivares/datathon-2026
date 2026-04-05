@@ -1,1 +1,62 @@
-{}
+{
+  "categorical_columns": [
+    "Parental_Involvement",
+    "Access_to_Resources",
+    "Extracurricular_Activities",
+    "Motivation_Level",
+    "Internet_Access",
+    "Family_Income",
+    "Teacher_Quality",
+    "School_Type",
+    "Peer_Influence",
+    "Learning_Disabilities",
+    "Parental_Education_Level",
+    "Distance_from_Home",
+    "Gender"
+  ],
+  "feature_columns": [
+    "Parental_Involvement",
+    "Access_to_Resources",
+    "Extracurricular_Activities",
+    "Motivation_Level",
+    "Internet_Access",
+    "Family_Income",
+    "Teacher_Quality",
+    "School_Type",
+    "Peer_Influence",
+    "Learning_Disabilities",
+    "Parental_Education_Level",
+    "Distance_from_Home",
+    "Gender",
+    "Academic_Support_Index",
+    "Attendance",
+    "Home_Support_Index",
+    "Hours_Studied",
+    "Physical_Activity",
+    "Previous_Scores",
+    "Sleep_Hours",
+    "Study_Attendance_Product",
+    "Study_Sleep_Balance",
+    "Tutoring_Sessions",
+    "Wellbeing_Index"
+  ],
+  "model_type": "RandomForestRegressor",
+  "numeric_columns": [
+    "Academic_Support_Index",
+    "Attendance",
+    "Home_Support_Index",
+    "Hours_Studied",
+    "Physical_Activity",
+    "Previous_Scores",
+    "Sleep_Hours",
+    "Study_Attendance_Product",
+    "Study_Sleep_Balance",
+    "Tutoring_Sessions",
+    "Wellbeing_Index"
+  ],
+  "random_seed": 40426,
+  "target_column": "Exam_Score",
+  "test_metrics": {
+    "mae": 0.9401172465960664
+  }
+}
