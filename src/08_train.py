@@ -77,9 +77,8 @@ def build_model_pipeline(
     """Create the full preprocessing-plus-model pipeline."""
     preprocessing = build_preprocessing_pipeline(categorical_columns, numeric_columns)
     regressor = RandomForestRegressor(
-        n_estimators=200,
+        n_estimators=100,
         random_state=RANDOM_SEED,
-        n_jobs=-1,
     )
     return Pipeline(
         steps=[
@@ -88,6 +87,18 @@ def build_model_pipeline(
         ]
     )
 
+# Todo Create this is as its own function to easily obtain the test input and test labels
+"""
+feature_columns, categorical_columns = get_training_feature_columns(df)
+    X = df[feature_columns].copy()
+    y = df[target_column].copy()
+    validate_training_columns(X)
+
+    X_train, X_test, y_train, y_test = split_data(
+        pd.concat([X, y], axis=1),
+        target_column=target_column,
+    )
+"""
 
 def train_model(df: pd.DataFrame, target_column: str = ACADEMIC_FACTORS_TARGET_COLUMN) -> dict[str, Any]:
     """Train the baseline regressor and return the fitted artifacts."""
@@ -104,6 +115,9 @@ def train_model(df: pd.DataFrame, target_column: str = ACADEMIC_FACTORS_TARGET_C
     numeric_columns = [column for column in X_train.columns if column not in categorical_columns]
     pipeline = build_model_pipeline(categorical_columns, numeric_columns)
     pipeline.fit(X_train, y_train)
+
+
+    
 
     return {
         "model": pipeline,
@@ -205,6 +219,7 @@ def main() -> None:
         f"Saved RandomForestRegressor to {MODEL_PATH} with "
         f"train_MAE={training_artifacts['metrics']['train_mae']:.4f} and "
         f"test_MAE={training_artifacts['metrics']['test_mae']:.4f}."
+        f"My model\'s score: {training_artifacts['metrics']}"
     )
 
 
